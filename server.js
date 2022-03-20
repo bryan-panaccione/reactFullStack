@@ -1,6 +1,6 @@
-import express from "express";
-import pkg from "pg";
-import dotenv from "dotenv";
+var express = require("express");
+var pkg = require("pg");
+var dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -23,13 +23,21 @@ const pool = new Pool({
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(express.static("public"));
+app.use((req, res, next) => {
+  console.log("talkin");
+  next();
+});
 
 //routes
 //read all
 app.get("/donuts", (req, res) => {
+  console.log("hello");
   pool
     .query("SELECT * FROM donuts")
     .then((result) => {
+      console.log(result);
+      console.log(result.rows);
       res.send(result.rows);
     })
     .catch((err) => res.sendStatus(500));
@@ -99,6 +107,6 @@ app.use((req, res, next) => {
 });
 
 //listen on port
-app.listen(process.env.PORT, () =>
-  console.log(`Listening on port: ${process.env.PORT}`)
+app.listen(process.env.EXPRESS_PORT, () =>
+  console.log(`Listening on port: ${process.env.EXPRESS_PORT}`)
 );
