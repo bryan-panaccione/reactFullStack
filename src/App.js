@@ -1,13 +1,23 @@
-import logo from "./logo.svg";
-import "./App.css";
+import Navbar from "./components/navbar";
+import Banner from "./components/banner";
 import DataButton from "./components/testComp";
+import Dashcard from "./components/dashcard";
+import "./App.css";
+
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <DataButton />
+    <div>
+      <div className="App">
+        <header className="App-header">
+          <Navbar />
+        </header>
+        <div>
+          <Banner />
+          <DataButton />
+          <Dashcard />
+        </div>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -16,7 +26,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </div>
     </div>
   );
 }

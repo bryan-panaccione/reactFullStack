@@ -40,7 +40,7 @@ app.get("/property", (req, res) => {
       console.log(result.rows);
       res.send(result.rows);
     })
-    .catch((err) => res.send("ealslsls"));
+    .catch((err) => res.send(500));
 });
 
 //read one
@@ -79,11 +79,10 @@ app.patch("/property/:id", (req, res) => {
     coords = COALESCE($4, coords)
   WHERE id = $1
   RETURNING *`;
-  console.log(id, name, address, coords);
+
   pool
     .query(patchQuery, [id, name, address, coords])
     .then((result) => {
-      console.log(result);
       res.send(`${name} has been updated`);
     })
     .catch((err) => res.sendStatus(600));
@@ -102,7 +101,6 @@ app.delete("/property/:id", (req, res) => {
 //404 if not found
 
 app.use((req, res, next) => {
-  console.log("works");
   res.sendStatus(404);
 });
 
