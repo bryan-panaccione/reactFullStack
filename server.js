@@ -31,23 +31,23 @@ app.use((req, res, next) => {
 
 //routes
 //read all
-app.get("/donuts", (req, res) => {
+app.get("/property", (req, res) => {
   console.log("hello");
   pool
-    .query("SELECT * FROM donuts")
+    .query("SELECT * FROM property")
     .then((result) => {
       console.log(result);
       console.log(result.rows);
       res.send(result.rows);
     })
-    .catch((err) => res.sendStatus(500));
+    .catch((err) => res.send("ealslsls"));
 });
 
 //read one
-app.get("/donuts/:id", (req, res) => {
+app.get("/property/:id", (req, res) => {
   const { id } = req.params;
   pool
-    .query("SELECT * FROM donuts WHERE id = $1", [id])
+    .query("SELECT * FROM property WHERE id = $1", [id])
     .then((result) => {
       res.send(result.rows[0]);
     })
@@ -55,13 +55,13 @@ app.get("/donuts/:id", (req, res) => {
 });
 
 //create
-app.post("/donuts", (req, res) => {
-  const { name, topping, qty } = req.body;
+app.post("/property", (req, res) => {
+  const { name, address, coords } = req.body;
   const postQuery = `
-      INSERT INTO donuts(name, topping, qty) 
+      INSERT INTO property(name, address, coords) 
       VALUES ($1, $2, $3) RETURNING *;`;
   pool
-    .query(postQuery, [name, topping, qty])
+    .query(postQuery, [name, address, coords])
     .then((result) => {
       res.send(`Success, ${name} added to the database`);
     })
@@ -69,19 +69,19 @@ app.post("/donuts", (req, res) => {
 });
 
 //update
-app.patch("/donuts/:id", (req, res) => {
+app.patch("/property/:id", (req, res) => {
   const { id } = req.params;
-  const { name, topping, qty } = req.body;
+  const { name, address, coords } = req.body;
   const patchQuery = `
-    UPDATE donuts SET
+    UPDATE property SET
     name = COALESCE($2, name),
-    topping = COALESCE($3, topping),
-    qty = COALESCE($4, qty)
+    address = COALESCE($3, address),
+    coords = COALESCE($4, coords)
   WHERE id = $1
   RETURNING *`;
-  console.log(id, name, topping, qty);
+  console.log(id, name, address, coords);
   pool
-    .query(patchQuery, [id, name, topping, qty])
+    .query(patchQuery, [id, name, address, coords])
     .then((result) => {
       console.log(result);
       res.send(`${name} has been updated`);
@@ -90,10 +90,10 @@ app.patch("/donuts/:id", (req, res) => {
 });
 
 //destroy
-app.delete("/donuts/:id", (req, res) => {
+app.delete("/property/:id", (req, res) => {
   const { id } = req.params;
   pool
-    .query("DELETE FROM donuts WHERE id = $1", [id])
+    .query("DELETE FROM property WHERE id = $1", [id])
     .then((result) => {
       res.send(`Donut with id ${id} successfully deleted`);
     })

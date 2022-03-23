@@ -3,8 +3,8 @@ import React, { Component } from "react";
 class DataButton extends Component {
   state = {};
 
-  getPets = () => {
-    fetch("http://localhost:3000/donuts", {
+  getProps = () => {
+    fetch("http://localhost:3000/property", {
       method: "GET",
       mode: "cors",
       cache: "no-cache",
@@ -21,7 +21,7 @@ class DataButton extends Component {
   render() {
     return (
       <div className="bry">
-        <button className="button" onClick={this.getPets.bind(this)}>
+        <button className="button" onClick={this.getProps.bind(this)}>
           Click Me
         </button>
       </div>

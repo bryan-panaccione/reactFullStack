@@ -1,16 +1,17 @@
 DROP TABLE IF EXISTS donuts;
+DROP TABLE IF EXISTS property;
 
 
 
-CREATE TABLE donuts (
+CREATE TABLE property (
     id SERIAL PRIMARY KEY,
     name text,
-    topping text,
-    qty INTEGER
+    address text,
+    coords INTEGER
 );
 
 
-INSERT INTO donuts(name, topping, qty) VALUES 
+INSERT INTO property(name, address, coords) VALUES 
 ('Grape Escape', 'Grape Jam', 10),
 ('Cocomotive', 'Chocolate', 19),
 ('Health Nut', 'Almonds', 15),
