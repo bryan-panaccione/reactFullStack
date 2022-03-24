@@ -36,8 +36,6 @@ app.get("/property", (req, res) => {
   pool
     .query("SELECT * FROM property")
     .then((result) => {
-      console.log(result);
-      console.log(result.rows);
       res.send(result.rows);
     })
     .catch((err) => res.send(500));
