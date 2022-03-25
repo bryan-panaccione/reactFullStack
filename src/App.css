@@ -33,6 +33,12 @@
   align-items: center;
   justify-content: space-around;
 }
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem 0;
+}
 :root {
   --active-brightness: 0.85;
   --border-radius: 5px;
@@ -54,7 +60,7 @@
   --justify-important: center;
   --justify-normal: left;
   --line-height: 1.5;
-  --width-card: 285px;
+  --width-card: 35rem;
   --width-card-medium: 460px;
   --width-card-wide: 800px;
   --width-content: 1080px;
